@@ -1,3 +1,8 @@
+/*
+功能: android下绕过 通过FLAG_SECURE实现截屏的功能 
+参考: https://bhamza.me/2019/11/03/Android-Frida-hooking-disabling-FLAG-SECURE.html
+*/
+
 Java.perform(function() {
             // https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_SECURE
             var FLAG_SECURE = 0x2000;
@@ -26,7 +31,7 @@ Java.perform(function() {
                 }
             });
             //修改为自己的Activity
-            Java.choose("com.kwai.noactivitytest.FirstActivity", {
+            Java.choose("com.XXXX.packageName.FirstActivity", {
                 "onMatch": function (instance) {
                     var runnable = DisableSecureRunnable.$new(instance);
                     instance.runOnUiThread(runnable);
